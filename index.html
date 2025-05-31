@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tantuni Süper Ligi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Poppins', sans-serif; }
+    body { display:flex; height:100vh; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); overflow:hidden; }
+    .sidebar {
+      width:300px; background:#fff; box-shadow:5px 0 20px rgba(0,0,0,0.1);
+      display:flex; flex-direction:column; padding:20px; animation:slideInLeft 1s ease forwards; z-index:2;
+    }
+    .sidebar img { width:220px; margin:0 auto 30px; border-radius:20px; box-shadow:0 5px 20px rgba(0,0,0,0.2); }
+    .category {
+      padding:15px 20px; margin:10px 0; border-radius:12px; background:#f1f1f1; cursor:pointer;
+      transition:0.4s; font-size:18px; font-weight:500; text-align:center;
+    }
+    .category:hover { background:#ffc371; color:#fff; transform:translateX(5px); box-shadow:0 5px 20px rgba(0,0,0,0.2); }
+    .content { flex:1; padding:40px; overflow-y:auto; animation:fadeIn 1s ease forwards; }
+    .section { display:none; animation:fadeIn 1s ease forwards; }
+    .section.active { display:block; }
+    .section h2 { font-size:32px; margin-bottom:20px; color:#333; }
+    .section p, .section table { font-size:18px; color:#555; }
+    .comment-box {
+      background:#fff; border-radius:15px; padding:20px; margin:15px 0;
+      box-shadow:0 5px 20px rgba(0,0,0,0.15); animation:popIn 0.8s ease forwards;
+    }
+    .comment-box h4 { margin-bottom:10px; color:#333; }
+    .comment-box p { font-size:16px; color:#666; }
+    table {
+      width:100%; border-collapse:collapse; margin-top:20px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.15);
+    }
+    th, td {
+      padding:12px; text-align:center; border-bottom:1px solid #ddd;
+    }
+    th {
+      background:#ffc371; color:#fff;
+    }
+    tr:hover { background:#fff8e1; }
+    .video-box { margin-bottom: 20px; }
+    video {
+      width:100%; border-radius:15px; box-shadow:0 5px 20px rgba(0,0,0,0.15);
+    }
+    .like-info {
+      display:flex; align-items:center; gap:10px; margin-top:10px; font-size:18px; color:#333;
+    }
+    .like-info span {
+      font-size:22px; color:#ff3e3e; cursor:pointer;
+      animation:popIn 1s ease forwards;
+    }
+    .like-info button {
+      background:#ff3e3e; color:#fff; border:none; padding:5px 10px; border-radius:6px; cursor:pointer;
+    }
+    .comment-form {
+      background:#fff; padding:20px; border-radius:15px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.15); margin-top:30px;
+    }
+    .comment-form input, .comment-form textarea {
+      width:100%; padding:12px; margin-bottom:15px;
+      border:1px solid #ddd; border-radius:8px; font-size:16px;
+    }
+    .comment-form button {
+      padding:12px 25px; border:none; background:#ff8c00; color:#fff;
+      border-radius:8px; cursor:pointer; transition:0.3s;
+    }
+    .comment-form button:hover {
+      background:#e67600;
+    }
+    .like-info button {
+        padding: 8px 20px;
+        border: none;
+        background: #ff8c00;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 16px;
+        }
+    .like-info button:hover {
+        background: #e67600;
+    }
+
+    @keyframes slideInLeft { from {transform:translateX(-100%);} to {transform:translateX(0);} }
+    @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+    @keyframes popIn { 0% {transform:scale(0.5); opacity:0;} 100% {transform:scale(1); opacity:1;} }
+  </style>
+</head>
+<body>
+<div class="sidebar">
+  <img src="tantuniligi.png" alt="Tantuni Süper Ligi" />
+  <div class="category" onclick="showSection('anasayfa')">Ana Sayfa</div>
+  <div class="category" onclick="showSection('haberler')">Haberler</div>
+  <div class="category" onclick="showSection('puanDurumu')">Puan Durumu</div>
+  <div class="category" onclick="showSection('oyuncular')">Gol Ve Asist</div>
+  <div class="category" onclick="showSection('haftaninOyunculari')">Haftanın Oyuncuları</div>
+  <div class="category" onclick="showSection('yorumlar')">Yorumlar</div>
+</div>
+<div class="content">
+  <div id="anasayfa" class="section active">
+    <h2>🏆 Tantuni Süper Ligi</h2>
+    <div class="video-box">
+      <video src="Video1.mp4" controls></video>
+      <div class="like-info">
+        <span>❤️</span> <span id="like-count">694</span> Beğenme
+        <button id="likeButton" onclick="toggleLike()">Beğen</button>
+      </div>
+    </div>
+    <p>Agahdan müthiş kurtarış!</p>
+  </div>
+  <div id="haberler" class="section">
+    <h2>⚽ Son Haberler</h2>
+    <h3>3 Mayıs!</h3>
+    <p>Lavaşspor'dan flaş transfer! Acılıspor'un yıldız ismi Burak Baharat, sezon sonuna kadar Lavaşspor'da.</p>
+  </div>
+  <div id="puanDurumu" class="section">
+    <h2>📊 Puan Durumu</h2>
+    <table>
+      <tr>
+        <th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>AV</th><th>Puan</th>
+      </tr>
+      <tr><td>Tantuni United</td><td>20</td><td>14</td><td>3</td><td>3</td><td>+25</td><td>45</td></tr>
+      <tr><td>Lavaşspor</td><td>20</td><td>13</td><td>4</td><td>3</td><td>+20</td><td>43</td></tr>
+      <tr><td>Acılıspor</td><td>20</td><td>11</td><td>5</td><td>4</td><td>+15</td><td>38</td></tr>
+      <tr><td>Limon FC</td><td>20</td><td>10</td><td>5</td><td>5</td><td>+10</td><td>35</td></tr>
+    </table>
+  </div>
+  <div id="oyuncular" class="section">
+    <h2>🎖️ Gol Ve Asist Krallığı</h2>
+    <h4>Gol Krallığı</h4>
+    <p>
+      ⭐ Ceyhun Tantuni (22 Gol)<br>
+      ⭐ Yasin Lavaş (19 Gol)<br>
+      ⭐ Burak Baharat (16 Gol)
+    </p>
+    <h4>Asist Krallığı</h4>
+    <p>
+      ⭐ Ceyhun Tantuni (22 Gol)<br>
+      ⭐ Yasin Lavaş (19 Gol)<br>
+      ⭐ Burak Baharat (16 Gol)
+    </p>
+  </div>
+  <div id="haftaninOyunculari" class="section">
+    <h2>🔥 Günün Oyuncuları</h2>
+    <p>⭐ Ceyhun Tantuni<br>⭐ Burak Baharat</p>
+    <h2>🔥 Haftanın Oyuncuları</h2>
+    <p>⭐ Ceyhun Tantuni<br>⭐ Burak Baharat</p>
+  </div>
+  <div id="yorumlar" class="section">
+    <h2>💬 Taraftar Yorumları</h2>
+    <div class="comment-box"><h4>Mehmet Tantunici</h4><p>Bu lig bir harika dostum!</p></div>
+    <div class="comment-box"><h4>Aylin Acılı</h4><p>Acılıspor bu sene çok iyi!</p></div>
+    <div class="comment-form">
+      <h3>Yorum Ekle</h3>
+      <input type="text" id="name" placeholder="Adınız">
+      <input type="email" id="email" placeholder="Email">
+      <textarea id="message" placeholder="Mesajınız"></textarea>
+      <button onclick="sendComment()">Gönder</button>
+    </div>
+  </div>
+</div>
+<script>
+function toggleLike() {
+  const likeBtn = document.getElementById("likeButton");
+  localStorage.setItem("begenildi", "true");
+  likeBtn.textContent = "Beğendin ❤️";
+}
+
+// Sayfa açıldığında kontrol etsin
+window.onload = () => {
+  const likeBtn = document.getElementById("likeButton");
+  if (localStorage.getItem("begenildi") === "true") {
+    likeBtn.textContent = "Beğendin ❤️";
+  }
+};
+
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function sendComment(){
+  alert("Yorumunuz denetimden sonra yayınlanacaktır!");
+}
+</script>
+</body>
+</html>
